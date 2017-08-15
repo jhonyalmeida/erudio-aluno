@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from "react"
+import ReactDOM from "react-dom"
+import { withStyles } from 'material-ui/styles'
+import { Card, CardHeader, CardContent, CardActions, Button, Typography } from 'material-ui'
+import 'typeface-roboto'
 
-import './index.css';
-import SearchBar from './VideoPlayer/SearchBar';
-import registerServiceWorker from './registerServiceWorker';
+ReactDOM.render(
+  <Card>
+    <CardHeader title="Minhas Turmas" />
+    <CardContent>
+      <Typography component="p">
+        Você não possui nenhuma turma ativa.
+      </Typography>
+    </CardContent>
+    <CardActions>
+      <Button dense>Learn More</Button>
+    </CardActions>
+  </Card>,
+  document.getElementById("root")
+)
 
-import YTSearch from 'youtube-api-search';
-const API_KEY = 'AIzaSyDdIgQtCn7BUvSP00zh5WlhL2TjuPKLCwc';
-
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { videos: [] };      
-
-        YTSearch({key: API_KEY, term: 'testing'}, (videos) => {
-            this.setState({ videos });
-        });
-    }
-    
-    render() {
-        return (
-            <div>
-                <SearchBar />
-            </div>
-        );
-    }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();
