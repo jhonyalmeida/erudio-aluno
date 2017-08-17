@@ -1,22 +1,26 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { withStyles } from 'material-ui/styles'
-import { Card, CardHeader, CardContent, CardActions, Button, Typography } from 'material-ui'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import promise from 'redux-promise'
+import { BrowserRouter, Route } from 'react-router-dom'
+
+import ListaTurmas from './Turmas/components/ListaTurmas'
+import reducers from './Turmas/reducers'
 import 'typeface-roboto'
 
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
+
 ReactDOM.render(
-  <Card>
-    <CardHeader title="Minhas Turmas" />
-    <CardContent>
-      <Typography component="p">
-        Você não possui nenhuma turma ativa.
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button dense>Learn More</Button>
-    </CardActions>
-  </Card>,
-  document.getElementById("root")
+  <Provider store={createStoreWithMiddleware(reducers)}>
+  <BrowserRouter>
+    <div>
+      <h1>Erudio - Professores</h1>
+      <Route path="/turmas" component={ListaTurmas} />
+    </div>
+  </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
 )
 
 //registerServiceWorker();
