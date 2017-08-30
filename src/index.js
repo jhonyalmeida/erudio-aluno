@@ -6,8 +6,9 @@ import promise from 'redux-promise'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import ListaMatriculas from './Matriculas/components/ListaMatriculas'
-import ListaEnturmacoes from './Matriculas/components/ListaEnturmacoes'
-import reducers from './Matriculas/reducers'
+import ListaEnturmacoes from './Enturmacoes/components/ListaEnturmacoes'
+import ListaDisciplinas from './Disciplinas/components/ListaDisciplinas'
+import reducers from './reducers'
 import 'typeface-roboto'
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
@@ -20,7 +21,8 @@ ReactDOM.render(
         <Switch>
           <Route path="/matriculas/:id/enturmacoes" component={ListaEnturmacoes} />
           <Route path="/matriculas" component={ListaMatriculas} />
-          <Route path="/enturmacoes/:id/medias" component={ListaMedias} />
+          <Route path="/enturmacoes/:id/disciplinas" component={ListaDisciplinas} />
+          <Route path="/" component={ListaMatriculas} />
         </Switch>
       </div>
     </BrowserRouter>

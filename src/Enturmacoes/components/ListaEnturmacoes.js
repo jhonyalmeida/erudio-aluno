@@ -1,29 +1,29 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { listarMatriculas } from '../actions'
+import { listarEnturmacoes } from '../actions'
 import { 
     Card, CardHeader, CardContent, List, ListItem, ListItemText
 } from 'material-ui'
 import { Link } from 'react-router-dom'
 
-class ListaMatriculas extends Component {
+class ListaEnturmacoes extends Component {
     
     componentDidMount() {
-        this.props.listarMatriculas()
+        this.props.listarEnturmacoes(this.props.match.params.id)
     }
 
     listItems() {
-        const matriculas = this.props.matriculas
-        if (!_.isEmpty(matriculas)) {
+        const enturmacoes = this.props.enturmacoes
+        if (!_.isEmpty(enturmacoes)) {
             return (
                 <List>
-                    {_.map(matriculas, m => (
-                    <Link to={`/matriculas/${m.id}/enturmacoes`} key={m.id}>
+                    {_.map(enturmacoes, e => (
+                    <Link to={`/enturmacoes/${e.id}/disciplinas`} key={e.id}>
                         <ListItem dense button>
                             <ListItemText 
-                                primary={`${m.codigo} - ${m.curso}`} 
-                                secondary={m.status} 
+                                primary={`${e.turma} - ${e.etapa}`} 
+                                secondary={e.concluido ? 'CONCLUÍDO' : 'CURSANDO'} 
                             />
                         </ListItem>
                     </Link>
@@ -34,7 +34,7 @@ class ListaMatriculas extends Component {
             return (
                 <div>
                     <i className="material-icons">grid_off</i>
-                    <br />Nenhuma matrícula encontrada.
+                    <br />Nenhuma enturmação encontrada.
                 </div>
             )
         }
@@ -43,7 +43,7 @@ class ListaMatriculas extends Component {
     render() {
         return (
             <Card>
-                <CardHeader title="Minhas Matrículas" />
+                <CardHeader title="Minhas Enturmações" />
                 <CardContent>
                     {this.listItems()}
                 </CardContent>
@@ -52,8 +52,8 @@ class ListaMatriculas extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { matriculas: state.matriculas }
+function mapStateToProps(state, ownProps) {
+    return { enturmacoes: state.enturmacoes }
 }
 
-export default connect(mapStateToProps, { listarMatriculas })(ListaMatriculas)
+export default connect(mapStateToProps, { listarEnturmacoes })(ListaEnturmacoes)
