@@ -1,23 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import promise from 'redux-promise'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, browserHistory } from 'react-router-dom'
 
+import BarraSuperior from './Core/components/BarraSuperior'
 import ListaMatriculas from './Matriculas/components/ListaMatriculas'
 import ListaEnturmacoes from './Enturmacoes/components/ListaEnturmacoes'
 import ListaDisciplinas from './Disciplinas/components/ListaDisciplinas'
 import reducers from './reducers'
 import 'typeface-roboto'
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore)
+const store = createStore(reducers, composeWithDevTools(
+  applyMiddleware(promise)
+))
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <BrowserRouter>
       <div>
-        <h1>Erudio - Alunos</h1>
+        <BarraSuperior />
         <Switch>
           <Route path="/matriculas/:id/enturmacoes" component={ListaEnturmacoes} />
           <Route path="/matriculas" component={ListaMatriculas} />
