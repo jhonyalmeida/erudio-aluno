@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar'
@@ -22,27 +23,36 @@ const styles = {
   },
 }
 
-function BarraSuperior(props) {
-  const classes = props.classes
-  return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar disableGutters>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className={classes.flex}>
-            Erudio
-          </Typography>
-          <Button color="contrast">Entrar</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
-  )
+class BarraSuperior extends Component {
+
+  render() {
+    const classes = this.props.classes
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar disableGutters>
+            <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography type="title" color="inherit" className={classes.flex}>
+              Erudio
+            </Typography>
+            {this.props.autenticado && <Button color="contrast">Sair</Button>}
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
+
 }
 
-BarraSuperior.propTypes = {
-  classes: PropTypes.object.isRequired
+function mapStateToProps(state) {
+  return {
+    autenticado: state.auth.autenticado,
+    propTypes: {
+      classes: PropTypes.object.isRequired
+    }
+  }
 }
 
-export default withStyles(styles)(BarraSuperior)
+export default connect(mapStateToProps)(withStyles(styles)(BarraSuperior))
