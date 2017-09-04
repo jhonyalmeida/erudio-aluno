@@ -2,9 +2,8 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { listarDisciplinas } from '../actions'
-import { 
-    Card, CardHeader, CardContent, List, ListItem, ListItemText
-} from 'material-ui'
+import { Card, CardHeader, CardContent } from 'material-ui'
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
 
 class ListaDisciplinas extends Component {
     
@@ -14,18 +13,33 @@ class ListaDisciplinas extends Component {
 
     listItems() {
         const disciplinas = this.props.disciplinas
+        const first = disciplinas[Object.keys(disciplinas)[0]]
         if (!_.isEmpty(disciplinas)) {
             return (
-                <List>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            {first.medias.map(m => (
+                                <TableCell key={m.nome}>{m.nome}</TableCell>
+                            ))}
+                            <TableCell>MF</TableCell>
+                            <TableCell>Freq. (%)</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
                     {_.map(disciplinas, d => (
-                        <ListItem dense button key={d.id}>
-                            <ListItemText 
-                                primary={`${d.disciplina} - ${d.status}`} 
-                                secondary={`Média Final: ${d.mediaFinal || 'ND'} | Frequência: ${d.frequenciaTotal || '__'}%`} 
-                            />
-                        </ListItem>
+                        <TableRow key={d.id}>
+                            <TableCell>{d.disciplina}</TableCell>
+                            {d.medias.map((m) => (
+                                <TableCell>{m.nota || '-'}</TableCell>
+                            ))}
+                            <TableCell>{d.mediaFinal || 'ND'}</TableCell>
+                            <TableCell>{d.frequenciaTotal || 'ND'}</TableCell>
+                        </TableRow>
                     ))}
-                </List>
+                    </TableBody>
+                </Table>
             )
         } else {
             return (

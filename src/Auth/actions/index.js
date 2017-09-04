@@ -5,14 +5,14 @@ export const LOGIN_SUCESSO = 'LOGIN_SUCESSO'
 export const LOGIN_FALHA = 'LOGIN_FALHA'
 export const LOGOUT = 'LOGOUT'
 
-export function login(username, password) {
+export function login(username, password, callback) {
     return (dispatch) => {
         const encodedPassword = btoa(password)
         servidor.criar('tokens', {username, encodedPassword})
             .then((token) => {
                 dispatch({type: LOGIN_SUCESSO})
                 localStorage.setItem('token', token)
-                //browserHistory.push('/')
+                callback()
             })
             .catch((error) => {
                 dispatch({type: LOGIN_FALHA, payload: error.message})
@@ -20,9 +20,9 @@ export function login(username, password) {
     }
 }
 
-export function logoff() {
+export function logoff(callback) {
     localStorage.removeItem('token')
-    //browserHistory.push('/')
+    callback()
     return {
         type: LOGOUT
     }

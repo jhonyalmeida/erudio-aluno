@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions'
 import { 
-    Card, CardHeader, CardContent, List, ListItem, ListItemText
+    Card, CardHeader, CardContent
 } from 'material-ui'
 
 class FormLogin extends Component {
@@ -16,11 +16,15 @@ class FormLogin extends Component {
         }
     }
 
+    onSubmit() {
+        this.props.history.push('/')
+    }
+
     render() {
         const { handleSubmit, fields: { username, password }} = this.props
         return (
             <form>
-
+                <input type="text" />
             </form>
         )
     }
