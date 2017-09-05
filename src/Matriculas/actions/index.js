@@ -1,13 +1,13 @@
 import servidor from './../../Core/services/ErudioServer'
 
-export const CARREGAR_MATRICULA = 'carregar_matricula'
-export const LISTAR_MATRICULAS = 'listar_matriculas'
-export const CRIAR_MATRICULA = 'criar_matricula'
-export const ATUALIZAR_MATRICULA = 'atualizar_matricula'
-export const REMOVER_MATRICULA = 'remover_matricula'
+export const CARREGAR_MATRICULA = 'CARREGAR_MATRICULA'
+export const LISTAR_MATRICULAS = 'LISTAR_MATRICULAS'
+export const CRIAR_MATRICULA = 'CRIAR_MATRICULA'
+export const ATUALIZAR_MATRICULA = 'ATUALIZAR_MATRICULA'
+export const REMOVER_MATRICULA = 'REMOVER_MATRICULA'
 
 export function listarMatriculas() {
-    const matriculas = servidor.listar('matriculas')
+    const matriculas = servidor.listar('alunos/matriculas')
     return {
         type: LISTAR_MATRICULAS,
         payload: matriculas

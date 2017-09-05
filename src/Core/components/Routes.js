@@ -1,8 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import ListaMatriculas from './Matriculas/components/ListaMatriculas'
-import ListaEnturmacoes from './Enturmacoes/components/ListaEnturmacoes'
-import ListaDisciplinas from './Disciplinas/components/ListaDisciplinas'
+import ListaMatriculas from './../../Matriculas/components/ListaMatriculas'
+import ListaEnturmacoes from './../../Enturmacoes/components/ListaEnturmacoes'
+import ListaDisciplinas from './../../Disciplinas/components/ListaDisciplinas'
 
 export default (props) => (
     <Switch>

@@ -31,8 +31,8 @@ class ListaDisciplinas extends Component {
                     {_.map(disciplinas, d => (
                         <TableRow key={d.id}>
                             <TableCell>{d.disciplina}</TableCell>
-                            {d.medias.map((m) => (
-                                <TableCell>{m.nota || '-'}</TableCell>
+                            {d.medias.map(m => (
+                                <TableCell key={m.id}>{m.nota || '-'}</TableCell>
                             ))}
                             <TableCell>{d.mediaFinal || 'ND'}</TableCell>
                             <TableCell>{d.frequenciaTotal || 'ND'}</TableCell>

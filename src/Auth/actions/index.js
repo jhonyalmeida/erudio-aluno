@@ -1,26 +1,26 @@
 import servidor from './../../Core/services/ErudioServer'
-//import { browserHistory } from 'react-router'
 
 export const LOGIN_SUCESSO = 'LOGIN_SUCESSO'
 export const LOGIN_FALHA = 'LOGIN_FALHA'
 export const LOGOUT = 'LOGOUT'
 
-export function login(username, password, callback) {
+export function login(username, rawPassword, callback) {
     return (dispatch) => {
-        const encodedPassword = btoa(password)
-        servidor.criar('tokens', {username, encodedPassword})
-            .then((token) => {
+        const password = btoa(rawPassword)
+        servidor.criar('tokens', {username, password})
+            .then(jwt => {
+                localStorage.setItem('token', jwt.token)
                 dispatch({type: LOGIN_SUCESSO})
-                localStorage.setItem('token', token)
                 callback()
             })
             .catch((error) => {
+                console.log('erro de login')
                 dispatch({type: LOGIN_FALHA, payload: error.message})
             })
     }
 }
 
-export function logoff(callback) {
+export function logout(callback = () => {}) {
     localStorage.removeItem('token')
     callback()
     return {
