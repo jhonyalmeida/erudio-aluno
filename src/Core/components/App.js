@@ -7,7 +7,6 @@ import Routes from './Routes'
 import FormLogin from './../../Auth/components/FormLogin'
 
 class App extends Component {
-    
     render() {
         const content = this.props.autenticado ? <Routes /> : <FormLogin />
         return (

@@ -2,6 +2,7 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { login } from '../actions'
 import { 
@@ -23,8 +24,7 @@ class FormLogin extends Component {
 
     onSubmit(values) {
         this.props.login(values.username, values.password, () => {
-            //this.props.history.push('/')
-            alert(this.props.history)
+            this.props.history.push('/')
         })
     }
 
@@ -56,5 +56,5 @@ export default reduxForm({
     form: 'Login', validate
 })
 (
-    connect(null, {login})(FormLogin)
+    withRouter(connect(null, {login})(FormLogin))
 )

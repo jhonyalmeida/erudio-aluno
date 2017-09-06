@@ -14,10 +14,6 @@ const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(thunk, promise)
 ))
 
-// console.log('testando login...')
-// const loginAction = login('07800287912', 'warning')
-// loginAction((action) => { console.log(action) })
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar'
@@ -33,7 +34,9 @@ class BarraSuperior extends Component {
   }
 
   onLogoutClick() {
-    this.props.logout()
+    this.props.logout(() => {
+      this.props.history.push('/')
+    })
   }
 
   render() {
@@ -70,7 +73,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ logout }, dispatch)
 }
 
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(withStyles(styles)(BarraSuperior))
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(
+    withStyles(styles)(BarraSuperior)
+  )
+)
