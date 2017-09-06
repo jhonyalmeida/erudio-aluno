@@ -9,6 +9,7 @@ import reducers from './Core/reducers'
 import App from './Core/components/App'
 import 'typeface-roboto'
 import { login } from './Auth/actions'
+import registerServiceWorker from './registerServiceWorker'
 
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(thunk, promise())

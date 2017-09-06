@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { listarDisciplinas } from '../actions'
 import { Card, CardHeader, CardContent } from 'material-ui'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
+import { CircularProgress } from 'material-ui/Progress'
 
 class ListaDisciplinas extends Component {
     
@@ -54,9 +55,9 @@ class ListaDisciplinas extends Component {
     render() {
         return (
             <Card>
-                <CardHeader title="Disciplinas" />
+                <CardHeader title="Médias" />
                 <CardContent>
-                    {this.listItems()}
+                    {this.props.pending ? <CircularProgress size={50} /> : this.listItems()}
                 </CardContent>
             </Card>
         );
@@ -64,7 +65,10 @@ class ListaDisciplinas extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    return { disciplinas: state.disciplinas }
+    return { 
+        disciplinas: state.disciplinas,
+        pending: state.pending 
+    }
 }
 
 export default connect(mapStateToProps, { listarDisciplinas })(ListaDisciplinas)

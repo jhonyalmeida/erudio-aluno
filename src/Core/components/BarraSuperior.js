@@ -10,7 +10,7 @@ import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from 'material-ui-icons/Menu'
-import { logout } from './../../Auth/actions'
+import { carregarUsuario, logout } from './../../Auth/actions'
 
 const styles = {
   root: {
@@ -33,10 +33,26 @@ class BarraSuperior extends Component {
     this.onLogoutClick = this.onLogoutClick.bind(this)
   }
 
+  componentWillMount() {
+    if (!this.props.usuario) {
+      this.props.carregarUsuario()
+    }
+  }
+
   onLogoutClick() {
     this.props.logout(() => {
       this.props.history.push('/')
     })
+  }
+
+  renderUserPanel() {
+    const usuario = this.props.usuario
+    return (
+      <div>
+        <span>{usuario ? usuario.nomeExibicao.split(' ')[0] : ''}</span>
+        <Button onClick={this.onLogoutClick} color="contrast">Sair</Button>
+      </div>
+    )
   }
 
   render() {
@@ -51,7 +67,7 @@ class BarraSuperior extends Component {
             <Typography type="title" color="inherit" className={classes.flex}>
               Erudio
             </Typography>
-            {this.props.autenticado && <Button onClick={this.onLogoutClick} color="contrast">Sair</Button>}
+            {this.props.autenticado && this.renderUserPanel()}
           </Toolbar>
         </AppBar>
       </div>
@@ -63,6 +79,7 @@ class BarraSuperior extends Component {
 function mapStateToProps(state) {
   return {
     autenticado: state.auth.autenticado,
+    usuario: state.auth.usuario,
     propTypes: {
       classes: PropTypes.object.isRequired
     }
@@ -70,7 +87,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ logout }, dispatch)
+  return bindActionCreators({ carregarUsuario, logout }, dispatch)
 }
 
 export default withRouter(

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
-import { CircularProgress } from 'material-ui/Progress'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 import BarraSuperior from './BarraSuperior'
 import Routes from './Routes'
 import FormLogin from './../../Auth/components/FormLogin'
@@ -13,9 +14,9 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
+                    <ToastContainer newestOnTop={true} hideProgressBar={true} />
                     <BarraSuperior />
                     {content}
-                    {pending && <CircularProgress size="50" />}
                 </div>
             </BrowserRouter>
         )
@@ -26,7 +27,7 @@ function mapStateToProps(state) {
     return {
         autenticado: state.auth.autenticado,
         pending: state.pending,
-        error: state.auth.error
+        error: state.error
     }
 }
 

@@ -2,6 +2,7 @@ import servidor from './../../Core/services/ErudioServer'
 
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
+export const CARREGAR_USUARIO = 'CARREGAR_USUARIO'
 
 export function login(username, rawPassword, callback = () => {}) {
     const password = btoa(rawPassword)
@@ -21,5 +22,13 @@ export function logout(callback = () => {}) {
     callback()
     return {
         type: LOGOUT
+    }
+}
+
+export function carregarUsuario() {
+    const usuario = servidor.carregar('users', 'eu')
+    return {
+        type: CARREGAR_USUARIO,
+        payload: usuario
     }
 }

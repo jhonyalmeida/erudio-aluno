@@ -1,10 +1,11 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const URL_BASE = 'http://beta.erudio.itajai.sc.gov.br/servicos/web/api'
 
 const servidor = axios.create({
     baseURL: URL_BASE,
-    timeout: 5000
+    timeout: 8000
 });
 
 const getHeaders = () => {
@@ -16,7 +17,9 @@ const getHeaders = () => {
 }
 
 const handleError = (error) => {
-    return Promise.reject(error.response ? error.response.data.error.message : error.message)
+    const message = error.response && error.response.data.error ? error.response.data.error.message : error.message
+    toast(message, {type: 'error'})
+    return Promise.reject(message)
 }
 
 const listar = (recurso, params = {}) => {

@@ -3,7 +3,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { listarEnturmacoes } from '../actions'
 import { 
-    Card, CardHeader, CardContent, List, ListItem, ListItemText
+    Card, CardHeader, CardContent, 
+    List, ListItem, ListItemText, 
+    CircularProgress
 } from 'material-ui'
 import { Link } from 'react-router-dom'
 
@@ -45,7 +47,7 @@ class ListaEnturmacoes extends Component {
             <Card>
                 <CardHeader title="Minhas Enturmações" />
                 <CardContent>
-                    {this.listItems()}
+                    {this.props.pending ? <CircularProgress size={50} /> : this.listItems()}
                 </CardContent>
             </Card>
         );
@@ -53,7 +55,10 @@ class ListaEnturmacoes extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-    return { enturmacoes: state.enturmacoes }
+    return { 
+        enturmacoes: state.enturmacoes,
+        pending: state.pending
+    }
 }
 
 export default connect(mapStateToProps, { listarEnturmacoes })(ListaEnturmacoes)
