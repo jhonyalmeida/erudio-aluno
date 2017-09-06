@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import * as actions from '../actions'
+import { fulfilled, rejected } from './../../Core/helpers/actions'
+import { LOGIN, LOGOUT } from '../actions'
 
 const initState = {
     autenticado: localStorage.getItem('token') ? true : false
@@ -7,12 +8,10 @@ const initState = {
 
 export default function(state = initState, action) {
     switch (action.type) {
-        case actions.LOGIN_SUCESSO:
+        case fulfilled(LOGIN):
             return { ...state, autenticado: true }
-        case actions.LOGOUT:
+        case LOGOUT:
             return { ...state, autenticado: false }
-        case actions.LOGIN_FALHA:
-            return { ...state, error: action.payload }
         default:
             return state
     }

@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { 
+import { fulfilled } from './../../Core/helpers/actions'
+import {
     LISTAR_MATRICULAS, 
     CARREGAR_MATRICULA, 
     CRIAR_MATRICULA, 
@@ -9,15 +10,15 @@ import {
 
 export default function(state = {}, action) {
     switch (action.type) {
-        case CARREGAR_MATRICULA:
+        case fulfilled(CARREGAR_MATRICULA):
             return { ...state, [action.payload.id]: action.payload }
-        case LISTAR_MATRICULAS:
+        case fulfilled(LISTAR_MATRICULAS):
             const newItens = _.mapKeys(action.payload, 'id')
             return { ...state, ...newItens }
-        case CRIAR_MATRICULA:
-        case ATUALIZAR_MATRICULA:
+        case fulfilled(CRIAR_MATRICULA):
+        case fulfilled(ATUALIZAR_MATRICULA):
             return { ...state, [action.payload.id]: action.payload }
-        case REMOVER_MATRICULA:
+        case fulfilled(REMOVER_MATRICULA):
             return _.omit(state, action.payload)
         default:
             return state
