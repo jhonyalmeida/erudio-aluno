@@ -15,7 +15,7 @@ import { carregarUsuario, logout } from './../../Auth/actions'
 const styles = {
   root: {
     marginTop: 30,
-    width: '100%',
+    width: '100%'
   },
   flex: {
     flex: 1,
@@ -34,7 +34,7 @@ class BarraSuperior extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.usuario) {
+    if (!this.props.usuario && this.props.autenticado) {
       this.props.carregarUsuario()
     }
   }

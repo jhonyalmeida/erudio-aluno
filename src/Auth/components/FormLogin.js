@@ -5,21 +5,17 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import { login } from '../actions'
+import { renderField } from '../../Core/helpers/forms'
 import { 
     Card, CardHeader, CardContent, TextField, Button
 } from 'material-ui'
+import styles from './FormLogin.css'
 
 class FormLogin extends Component {
 
     constructor(props) {
         super(props)
         this.onSubmit = this.onSubmit.bind(this)
-    }
-
-    renderField(field) {
-        return (
-            <TextField label={field.label} type={field.type || 'text'} {...field.input} />
-        )
     }
 
     onSubmit(values) {
@@ -31,11 +27,14 @@ class FormLogin extends Component {
     render() {
         const { handleSubmit } = this.props
         return (
-            <form onSubmit={handleSubmit(this.onSubmit)}>
-                <Field label="Usuário" name="username" component={this.renderField} />
-                <Field label="Senha" name="password" type="password" component={this.renderField} />
-                <Button type="submit">Entrar</Button>
-            </form>
+            <div className="divLogin">
+                <img src="images/erudio-logo.png" width="150px" />
+                <form className="formLogin" onSubmit={handleSubmit(this.onSubmit)}>
+                    <Field label="Usuário" name="username" component={renderField} />
+                    <Field label="Senha" name="password" type="password" component={renderField} />
+                    <Button type="submit">Entrar</Button>
+                </form>
+            </div>
         )
     }
 

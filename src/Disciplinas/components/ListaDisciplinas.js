@@ -57,7 +57,10 @@ class ListaDisciplinas extends Component {
             <Card>
                 <CardHeader title="Médias" />
                 <CardContent>
-                    {this.props.pending ? <CircularProgress size={50} /> : this.listItems()}
+                    {this.props.pending 
+                        ? <div className="circular-progress"><CircularProgress size={50} /></div> 
+                        : this.listItems()
+                    }
                 </CardContent>
             </Card>
         );
