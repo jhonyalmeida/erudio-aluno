@@ -2,8 +2,12 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { listarDisciplinas } from '../actions'
-import { Card, CardHeader, CardContent } from 'material-ui'
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table'
+import { 
+    Card, CardHeader, CardContent,
+    Table, TableHead, TableBody, TableRow, TableCell,
+    Paper, Divider, Grid,
+
+} from 'material-ui'
 import { CircularProgress } from 'material-ui/Progress'
 
 class ListaDisciplinas extends Component {
@@ -12,35 +16,41 @@ class ListaDisciplinas extends Component {
         this.props.listarDisciplinas(this.props.match.params.id)
     }
 
-    listItems() {
+    renderDisciplinas() {
         const disciplinas = this.props.disciplinas
         const first = disciplinas[Object.keys(disciplinas)[0]]
         if (!_.isEmpty(disciplinas)) {
             return (
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell>
-                            {first.medias.map(m => (
-                                <TableCell key={m.nome}>{m.nome}</TableCell>
-                            ))}
-                            <TableCell>MF</TableCell>
-                            <TableCell>Freq. (%)</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {_.map(disciplinas, d => (
-                        <TableRow key={d.id}>
-                            <TableCell>{d.disciplina}</TableCell>
-                            {d.medias.map(m => (
-                                <TableCell key={m.id}>{m.nota || '-'}</TableCell>
-                            ))}
-                            <TableCell>{d.mediaFinal || 'ND'}</TableCell>
-                            <TableCell>{d.frequenciaTotal || 'ND'}</TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
+                <div>
+                {_.map(disciplinas, d => (
+                    <Card key={d.id} style={{marginBottom: "1em"}}>
+                        <CardHeader title={d.disciplina} />
+                        <CardContent>
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell></TableCell>
+                                        <TableCell><strong>Nota</strong></TableCell>
+                                        <TableCell><strong>Faltas</strong></TableCell>
+                                    </TableRow>
+                                    {d.medias.map(m => (
+                                        <TableRow key={m.id}>
+                                            <TableCell><strong>{m.nome}</strong></TableCell>
+                                            <TableCell>{m.nota || '-'}</TableCell>
+                                            <TableCell>{m.faltas}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                    <TableRow>
+                                        <TableCell><strong>MF</strong></TableCell>
+                                        <TableCell>{d.mediaFinal || 'ND'}</TableCell>
+                                        <TableCell>{d.frequenciaTotal || 'ND'}</TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                        </CardContent>
+                    </Card>
+                ))}
+                </div>
             )
         } else {
             return (
@@ -55,11 +65,11 @@ class ListaDisciplinas extends Component {
     render() {
         return (
             <Card>
-                <CardHeader title="Médias" />
+                <CardHeader title="Disciplinas" />
                 <CardContent>
                     {this.props.pending 
                         ? <div className="circular-progress"><CircularProgress size={50} /></div> 
-                        : this.listItems()
+                        : this.renderDisciplinas()
                     }
                 </CardContent>
             </Card>

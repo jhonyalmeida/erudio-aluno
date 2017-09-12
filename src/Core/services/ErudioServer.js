@@ -17,7 +17,9 @@ const getHeaders = () => {
 }
 
 const handleError = (error) => {
-    const message = error.response && error.response.data.error ? error.response.data.error.message : error.message
+    const message = error.response && error.response.data.error 
+        ? error.response.data.error.message
+        : error.message
     toast(message, {type: 'error'})
     return Promise.reject(message)
 }

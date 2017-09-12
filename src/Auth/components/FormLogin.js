@@ -28,7 +28,7 @@ class FormLogin extends Component {
         const { handleSubmit } = this.props
         return (
             <div className="divLogin">
-                <img src="images/erudio-logo.png" width="150px" />
+                <img src="images/erudio-logo.png" width="200px" />
                 <form className="formLogin" onSubmit={handleSubmit(this.onSubmit)}>
                     <Field label="Usuário" name="username" component={renderField} />
                     <Field label="Senha" name="password" type="password" component={renderField} />
