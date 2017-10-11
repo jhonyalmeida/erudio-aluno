@@ -11,7 +11,7 @@ const servidor = axios.create({
 const getHeaders = () => {
     let headers = {}
     if (localStorage.getItem('token')) {
-        headers['JWT-Authorization'] = 'Bearer ' + localStorage.getItem('token')
+        headers['JWT-Authorization'] = 'Bearer ' + window.localStorage.getItem('token')
     }
     return headers
 }

@@ -8,7 +8,7 @@ export function login(username, rawPassword, callback = () => {}) {
     const password = btoa(rawPassword)
     const request = servidor.criar('tokens', {username, password})
         .then(jwt => {
-            localStorage.setItem('token', jwt.token)
+            window.localStorage.setItem('token', jwt.token)
             callback()
         })
     return {
@@ -18,7 +18,7 @@ export function login(username, rawPassword, callback = () => {}) {
 }
 
 export function logout(callback = () => {}) {
-    localStorage.removeItem('token')
+    window.localStorage.removeItem('token')
     callback()
     return {
         type: LOGOUT

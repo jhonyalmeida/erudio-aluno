@@ -14,7 +14,6 @@ import { carregarUsuario, logout } from './../../Auth/actions'
 
 const styles = {
   root: {
-    marginTop: 30,
     width: '100%'
   },
   flex: {

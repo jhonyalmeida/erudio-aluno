@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { listarEnturmacoes } from '../actions'
 import { 
-    Card, CardHeader, CardContent, 
-    List, ListItem, ListItemText, 
-    CircularProgress
+    List, ListItem, ListItemText, CircularProgress
 } from 'material-ui'
 import { Link } from 'react-router-dom'
 
@@ -43,17 +41,9 @@ class ListaEnturmacoes extends Component {
     }
 
     render() {
-        return (
-            <Card>
-                <CardHeader title="Minhas Enturmações" />
-                <CardContent>
-                    {this.props.pending 
-                        ? <div className="circular-progress"><CircularProgress size={50} /></div> 
-                        : this.listItems()
-                    }
-                </CardContent>
-            </Card>
-        );
+        return this.props.pending 
+            ? (<div className="circular-progress"><CircularProgress size={30} /></div>)
+            : this.listItems()
     }
 }
 

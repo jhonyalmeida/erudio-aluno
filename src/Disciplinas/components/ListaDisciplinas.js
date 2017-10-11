@@ -4,8 +4,7 @@ import { connect } from 'react-redux'
 import { listarDisciplinas } from '../actions'
 import { 
     Card, CardHeader, CardContent,
-    Table, TableHead, TableBody, TableRow, TableCell,
-    Paper, Divider, Grid,
+    Table, TableHead, TableBody, TableRow, TableCell
 
 } from 'material-ui'
 import { CircularProgress } from 'material-ui/Progress'
@@ -21,9 +20,8 @@ class ListaDisciplinas extends Component {
         const first = disciplinas[Object.keys(disciplinas)[0]]
         if (!_.isEmpty(disciplinas)) {
             return (
-                <div>
-                {_.map(disciplinas, d => (
-                    <Card key={d.id} style={{marginBottom: "1em"}}>
+                _.map(disciplinas, d => (
+                    <Card key={d.id} style={{margin: "1em"}}>
                         <CardHeader title={d.disciplina} />
                         <CardContent>
                             <Table>
@@ -49,8 +47,7 @@ class ListaDisciplinas extends Component {
                             </Table>
                         </CardContent>
                     </Card>
-                ))}
-                </div>
+                ))
             )
         } else {
             return (
@@ -63,17 +60,9 @@ class ListaDisciplinas extends Component {
     }
 
     render() {
-        return (
-            <Card>
-                <CardHeader title="Disciplinas" />
-                <CardContent>
-                    {this.props.pending 
-                        ? <div className="circular-progress"><CircularProgress size={50} /></div> 
-                        : this.renderDisciplinas()
-                    }
-                </CardContent>
-            </Card>
-        );
+        return this.props.pending 
+            ? (<div className="circular-progress"><CircularProgress size={30} /></div>)
+            : this.renderDisciplinas()
     }
 }
 
